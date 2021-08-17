@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sysauto_script">
+    <sysauto_script action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <business_calendar/>
+        <condition/>
+        <conditional>false</conditional>
+        <entered_time>1970-01-01 08:05:00</entered_time>
+        <name>Find NeedIt Tasks Due Soon</name>
+        <offset/>
+        <offset_type/>
+        <run_as display_value="System Administrator">6816f79cc0a8016401c5a33be04be441</run_as>
+        <run_as_tz/>
+        <run_dayofmonth>1</run_dayofmonth>
+        <run_dayofweek>1</run_dayofweek>
+        <run_period/>
+        <run_start>2021-08-13 11:43:24</run_start>
+        <run_time>1970-01-01 08:05:00</run_time>
+        <run_type>daily</run_type>
+        <script><![CDATA[//To get the current time//
+var rightnow = GlideDateTime();
+var after24fromnow = gs.hoursAgo(-24);
+
+//To scan through the records in needittask table//
+
+var overDueNITask = new GlideRecord('x_58872_needit_needit_task');
+overDueNITask.addQuery('due_date','>=',rightnow);
+overDueNITask.addQuery('due_date','<',after24fromnow);
+overDueNITask.addQuery('state','!=',3);
+overDueNITask.query();
+
+while(overDueNITask.next()){
+	
+	gs.info("the records to expire in next 24 hours" + overDueNITask.number);
+	gs.eventQueue('x_58872_needit.dueSoonNeedItTasks',overDueNITask,overDueNITask.number,gs.getUserName());
+}]]></script>
+        <sys_class_name>sysauto_script</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2021-08-13 11:55:05</sys_created_on>
+        <sys_id>e8dcd8042f8a30104b8f265df699b6b4</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>Find NeedIt Tasks Due Soon</sys_name>
+        <sys_package display_value="NeedIt" source="x_58872_needit">6ead8e780f603200cd674f8ce1050ed1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="NeedIt">6ead8e780f603200cd674f8ce1050ed1</sys_scope>
+        <sys_update_name>sysauto_script_e8dcd8042f8a30104b8f265df699b6b4</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2021-08-14 19:48:17</sys_updated_on>
+        <time_zone>floating</time_zone>
+        <upgrade_safe>false</upgrade_safe>
+    </sysauto_script>
+</record_update>
