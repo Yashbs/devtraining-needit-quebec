@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element label="Needit M2m Change Requests Incidents" max_length="40" name="x_58872_needit_m2m_change_requests_incidents" sizeclass="0" type="collection">
+        <element attributes="encode_utf8=false" label="Change Request" max_length="32" name="change_request" reference="change_request" type="reference"/>
+        <element attributes="encode_utf8=false" label="Incident" max_length="32" name="incident" reference="incident" type="reference"/>
+        <index name="index">
+            <element name="incident"/>
+        </index>
+        <index name="index2">
+            <element name="change_request"/>
+        </index>
+    </element>
+</database>
